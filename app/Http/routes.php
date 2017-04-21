@@ -39,6 +39,10 @@ Route::group(['prefix' => 'admin'], function () {
 		Route::get('/add', [
 		   'as' => 'admin/category/add', 'uses' => 'admin\CategoryController@addcategory'
 		]);
+
+		Route::match(['get', 'post'], '/add_ajax', [
+		   'as' => 'admin/category/add_ajax', 'uses' => 'admin\CategoryController@addcategory_ajax'
+		]);
 	});
 
 });

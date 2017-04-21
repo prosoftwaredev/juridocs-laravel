@@ -10,6 +10,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Document;
 use App\Models\Category;
 
+use Response;
+
 class CategoryController extends Controller
 {
     /**
@@ -34,5 +36,19 @@ class CategoryController extends Controller
 
     public function addcategory() {
         return view('pages.admin.category.add');
+    }
+
+    public function addcategory_ajax() {
+        $category_name = $_REQUEST['category_name'];
+        $category_description = $_REQUEST['category_description'];
+
+        Category::insert([
+            'name' => $category_name,
+            'description' => $category_description
+        ]);
+
+        return Response::json(array(
+            'success' => true
+        ));
     }
 }

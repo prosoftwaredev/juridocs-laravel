@@ -2,9 +2,9 @@
 
 @section('header')
 
-<!-- <link rel="stylesheet" type="text/css" href="../../assets/admin/pages/css/document.css"> -->
+<link rel="stylesheet" type="text/css" href="../../assets/admin/pages/css/category/list.css">
 
-<script src="../../assets/admin/pages/scripts/document/document.js"></script>
+<script src="../../assets/admin/pages/scripts/category/category.js"></script>
 
 <script>
   jQuery(document).ready(function() {       
@@ -49,7 +49,7 @@
           <i class="fa fa-angle-right"></i>
         </li>
         <li>
-          <a href="#">Document</a>
+          <a href="#">Category</a>
           <i class="fa fa-angle-right"></i>
         </li>
         <li>
@@ -64,7 +64,7 @@
           <div class="portlet box green-haze">
             <div class="portlet-title">
               <div class="caption">
-                <i class="fa fa-globe"></i>Documents
+                <i class="fa fa-globe"></i>Categories
               </div>
               <div class="tools">
                 <a href="javascript:;" class="collapse">
@@ -78,11 +78,11 @@
               </div>
             </div>
             <div class="portlet-body">
-              <table class="table table-striped table-hover" id="documents_table">
+              <table class="table table-striped table-hover" id="category_table">
               <thead>
                 <tr>
                   <th>
-                     Document Name
+                     Category Name
                   </th>
                   <th class="hidden-xs">
                      Edit
