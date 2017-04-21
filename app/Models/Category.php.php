@@ -4,7 +4,7 @@ namespace App\models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Category.php extends Model
+class Category extends Model
 {
     //
 }
