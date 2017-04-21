@@ -84,12 +84,6 @@
                   <th>
                      Document Name
                   </th>
-                  <th>
-                     Price
-                  </th>
-                  <th class="hidden-xs">
-                     Downloads
-                  </th>
                   <th class="hidden-xs">
                      Edit
                   </th>
@@ -99,15 +93,12 @@
                 </tr>
               </thead>
               <tbody>
-                @foreach($documents as $key => $value)
+                @foreach($categories as $key => $value)
                 <tr>
                   <td>{{ $value->name }}</td>
-                  <td>{{ $value->price }}</td>
-                  <td>{{ $value->downloads }}</td>
                   <td><button class="btn btn-primary">EDIT</button></td>
                   <td><button class="btn btn-warning">DELETE</button></td>
                 </tr>
-
                 @endforeach
               </tbody>
               </table>
