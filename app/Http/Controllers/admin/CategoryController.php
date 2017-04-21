@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Models\Document;
+use App\Models\Category;
 
 class CategoryController extends Controller
 {
@@ -23,10 +24,10 @@ class CategoryController extends Controller
 
     public function category()
     {
-        $documents = Document::get();
+        $categories = Category::get();
 
         return view('pages.admin.category.list', [
-            'documents' => $documents
+            'categories' => $categories
         ]);
 
     }

@@ -105,7 +105,7 @@
                   <td>
                     <span class="label label-sm label-success">
                       @if($value->price != 0)
-                        $ {{ $value->price }}
+                        <i class="fa fa-dollar"></i> {{ $value->price }}
                       @else
                         FREE
                       @endif
