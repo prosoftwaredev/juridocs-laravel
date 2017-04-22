@@ -1,12 +1,14 @@
-  @extends('layouts.admin.header')
+@extends('layouts.admin.header')
 
 @section('header')
 
-<script src="../../assets/admin/pages/scripts/document/add_document.js"></script>
+<script src="../../assets/admin/pages/scripts/category/add_category.js"></script>
+<script src="../../assets/admin/pages/scripts/ui-toastr.js"></script>
 
 <script>
   jQuery(document).ready(function() {       
     ComponentsFormTools.init();
+    UIToastr.init();
   });
 </script>
 
@@ -47,7 +49,7 @@
           <i class="fa fa-angle-right"></i>
         </li>
         <li>
-          <a href="#">Document</a>
+          <a href="#">Category</a>
           <i class="fa fa-angle-right"></i>
         </li>
         <li>
@@ -63,7 +65,7 @@
         <div class="portlet box blue-hoki">
           <div class="portlet-title">
             <div class="caption">
-              <i class="fa fa-edit"></i>Add Document
+              <i class="fa fa-edit"></i>Add Category
             </div>
             <div class="tools">
               <a href="javascript:;" class="collapse">
@@ -78,26 +80,12 @@
           </div>
           <div class="portlet-body form">
             <!-- BEGIN FORM-->
-            <form action="#" class="form-horizontal form-bordered">
+            <form action="" class="form-horizontal form-bordered">
               <div class="form-body">
                 <div class="form-group">
                   <label class="control-label col-md-3">Name</label>
                   <div class="col-md-9">
-                    <input type="text" class="form-control">
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="control-label col-md-3">Payed</label>
-                  <div class="col-md-9">
-                    <input type="checkbox" class="make-switch" checked data-on-color="success" data-off-color="warning">
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="control-label col-md-3">Price</label>
-                  <div class="col-md-9">
-                    <div class="input-inline input-medium">
-                      <input id="touchspin_demo1" type="text" value="0" name="demo1" class="form-control">
-                    </div>
+                    <input type="text" class="form-control category-name">
                   </div>
                 </div>
                 <div class="form-group">
@@ -121,16 +109,16 @@
                   </div>
                 </div>
                 <div class="form-group last">
-                  <label class="control-label col-md-3">Document Template</label>
+                  <label class="control-label col-md-3">Category Description</label>
                   <div class="col-md-9">
-                    <textarea class="ckeditor form-control" name="editor1" rows="6"></textarea>
+                    <textarea class="ckeditor form-control category-description" name="editor1" rows="6" name="category-description" id="category-description"></textarea>
                   </div>
                 </div>
               </div>
               <div class="form-actions">
                 <div class="row">
                   <div class="col-md-offset-3 col-md-9">
-                    <button type="submit" class="btn purple"><i class="fa fa-check"></i> Submit</button>
+                    <button type="button" class="btn purple add-category"><i class="fa fa-check"></i> Add</button>
                     <button type="button" class="btn default">Cancel</button>
                   </div>
                 </div>
