@@ -2,13 +2,24 @@
 
 @section('header')
 
-<link rel="stylesheet" type="text/css" href="../../assets/admin/pages/css/category/list.css">
-
-<script src="../../assets/admin/pages/scripts/category/category.js"></script>
+<script src="../../assets/global/plugins/jstree/dist/jstree.min.js"></script>
 
 <script>
-  jQuery(document).ready(function() {       
-    TableAdvanced.init();
+  jQuery(document).ready(function() {
+    $('#category_tree').jstree({
+      'plugins': ["wholerow", "dnd", "state","types"],
+      'core': {
+        "themes" : {
+            "responsive": true
+        },
+        'data': <?php echo json_encode($categories)?>,
+      },
+      'types': {
+        "default" : {
+            "icon" : "fa fa-th-list icon-state-warning icon-lg"
+        }
+      }
+    })
   });
 </script>
 
@@ -78,30 +89,8 @@
               </div>
             </div>
             <div class="portlet-body">
-              <table class="table table-striped table-hover" id="category_table">
-              <thead>
-                <tr>
-                  <th>
-                     Category Name
-                  </th>
-                  <th class="hidden-xs">
-                     Edit
-                  </th>
-                  <th class="hidden-xs">
-                     Delete
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                @foreach($categories as $key => $value)
-                <tr>
-                  <td>{{ $value->name }}</td>
-                  <td><button class="btn btn-primary">EDIT</button></td>
-                  <td><button class="btn btn-warning">DELETE</button></td>
-                </tr>
-                @endforeach
-              </tbody>
-              </table>
+              <div id='category_tree'>
+              </div>
             </div>
           </div>
         <!-- END EXAMPLE TABLE PORTLET-->

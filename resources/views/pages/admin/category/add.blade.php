@@ -2,13 +2,37 @@
 
 @section('header')
 
+<link href="../../assets/admin/pages/css/category/add.css" rel="stylesheet" type="text/css"/>
+
+<script src="../../assets/admin/pages/scripts/ui-toastr.js"></script>
+
 <script src="../../assets/admin/pages/scripts/category/add_category.js"></script>
 <script src="../../assets/admin/pages/scripts/ui-toastr.js"></script>
 
+
+
 <script>
-  jQuery(document).ready(function() {       
+  jQuery(document).ready(function() {
+
     ComponentsFormTools.init();
     UIToastr.init();
+
+    $('#category_tree').jstree({
+      'plugins': ["wholerow", "dnd", "state","types"],
+      'core': {
+        "themes" : {
+            "responsive": true
+        },
+        'data': <?php echo json_encode($categories)?>,
+        "check_callback": true
+      },
+      'types': {
+        "default" : {
+            "icon" : "fa fa-th-list icon-state-warning icon-lg"
+        }
+      }
+    })   
+
   });
 </script>
 
@@ -100,12 +124,48 @@
                         Select image </span>
                         <span class="fileinput-exists">
                         Change </span>
-                        <input type="file" name="...">
+                        <input type="file" name="category-image">
                         </span>
                         <a href="javascript:;" class="btn red fileinput-exists" data-dismiss="fileinput">
                         Remove </a>
                       </div>
                     </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="control-label col-md-3">Parent Category</label>
+                  <div class="col-md-9">
+                    <div id='category_tree'></div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="control-label col-md-3">Visibility</label>
+                  <div class="col-md-9">
+                    <select name="visibility" id="sel_visibility" class="form-control">
+                    @foreach ($visibilities as $key => $visibility)
+                      <option value="{{$visibility->id}}"> {{$visibility->name}} </option>
+                    @endforeach
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group custom-options">
+                  <label class="control-label col-md-3">Users</label>
+                  <div class="col-md-9">
+                    <select name="visibility" id="sel_visibility" class="form-control">
+                      <option value="public">Public</option>
+                      <option value="logged_in">Logged in Users</option>
+                      <option value="hidden">Hidden</option>
+                      <option value="custom">Custom</option>
+                    </select>
+                  </div>
+                  <label class="control-label col-md-3">Groups</label>
+                  <div class="col-md-9">
+                    <select name="visibility" id="sel_visibility" class="form-control">
+                      <option value="public">Public</option>
+                      <option value="logged_in">Logged in Users</option>
+                      <option value="hidden">Hidden</option>
+                      <option value="custom">Custom</option>
+                    </select>
                   </div>
                 </div>
                 <div class="form-group last">
