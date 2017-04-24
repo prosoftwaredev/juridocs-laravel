@@ -52,7 +52,6 @@ $(document).ready(function () {
 
 var ComponentsFormTools = function () {
 
-
     var handleBootstrapSwitch = function() {
 
         $('.switch-radio1').on('switch-change', function () {

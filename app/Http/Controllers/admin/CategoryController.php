@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 
 use App\Models\Document;
 use App\Models\Category;
+use App\Models\Visibility;
 
 use Response;
 
@@ -27,28 +28,87 @@ class CategoryController extends Controller
     public function category()
     {
         $categories = Category::get();
+        
+        $result = [];
+
+        foreach ($categories as $key => $value) {
+            $item = [
+                'id' => $value['id'],
+                'text' => $value['name'],
+                'parent' => $value['pid'] ? $value['pid'] : '#'
+            ];
+            array_push($result, $item);
+        }
 
         return view('pages.admin.category.list', [
-            'categories' => $categories
+            'categories' => $result
         ]);
 
     }
 
     public function addcategory() {
-        return view('pages.admin.category.add');
+        $categories = Category::get();
+        $visibilities = Visibility::get();
+
+        $result = [];
+
+        foreach ($categories as $key => $value) {
+            $item = [
+                'id' => $value['id'],
+                'text' => $value['name'],
+                'parent' => $value['pid'] ? $value['pid'] : '#'
+            ];
+            array_push($result, $item);
+        }
+
+        return view('pages.admin.category.add', [
+            'categories' => $result,
+            'visibilities' => $visibilities
+        ]);
     }
 
-    public function addcategory_ajax() {
-        $category_name = $_REQUEST['category_name'];
-        $category_description = $_REQUEST['category_description'];
+    public function addcategory_ajax(Request $req) {
+        try {
+            $imageUrl = '';
 
-        Category::insert([
-            'name' => $category_name,
-            'description' => $category_description
-        ]);
+            if (!empty($image)) {
+                $destination = '/images/category_images/';
+                $imageName = $image->getClientOriginalExtension();
+                $image->move(base_path().$destination, $imageName);
+                $imageUrl = $destination.$imageName;
+            }
 
-        return Response::json(array(
-            'success' => true
-        ));
+            
+            $newCateogry = new Category;
+            $newCateogry->name = $req->input('category_name');
+            $newCateogry->description = $req->input('category_description');
+            $newCateogry->image_url = $imageUrl;
+            $newCateogry->description = $categoryDescription;
+
+            $pid = $req->input('pid');
+
+            $newCateogry->pid = $pid == '#' ? NULL : $pid;
+            $newCateogry->visibility_id = $req->input('visibility');
+
+        
+            if ($newCateogry->save()) {
+                return Response::json(array(
+                    'success' => true,
+                    'data' => $newCateogry
+                ));
+            }
+            else {
+                return Response::json(array(
+                    'success' => false
+                ));
+            }
+
+        } catch(Exception $e) {
+            return Response::json(array(
+                'success' => false,
+                'error' => $exception->errorInfo
+            ));
+        }
+        
     }
 }

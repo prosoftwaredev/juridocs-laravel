@@ -49,6 +49,7 @@
 <script src="../../assets/global/plugins/typeahead/handlebars.min.js" type="text/javascript"></script>
 <script src="../../assets/global/plugins/typeahead/typeahead.bundle.min.js" type="text/javascript"></script>
 <script type="text/javascript" src="../../assets/global/plugins/ckeditor/ckeditor.js"></script>
+<script src="../../assets/global/plugins/jstree/dist/jstree.min.js"></script>
 <!-- END PAGE LEVEL PLUGINS -->
 <!-- BEGIN PAGE LEVEL SCRIPTS -->
 <script src="../../assets/global/plugins/bootstrap-toastr/toastr.min.js"></script>

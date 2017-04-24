@@ -18,18 +18,32 @@ $(document).ready(function () {
     $('.add-category').click(function() {
         var category_name = $('.category-name').val();
         var category_description = CKEDITOR.instances['category-description'].getData();
-
+        var csrf = $("#token").attr('content');
+        var selected_item = $('#category_tree').jstree("get_selected");
+        if (selected_item.length == 0 ) {
+            selected_item.push('#');
+        }
+        
         $.ajax({
-            type: "GET",
+            type: "POST",
             url: 'add_ajax',
-            data: { category_name: category_name, category_description: category_description },
-            success: function( data ) {
-                if(data['success'] == true) {
+            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+            data: { 
+                category_name: category_name, 
+                category_description: category_description,
+                pid: selected_item[0]
+            },
+            success: function( res ) {
+                if(res['success'] == true) {
                     toastr['success']("Category Added Successfully!", "Success")
 
                     $('.category-name').val('');
                     CKEDITOR.instances['category-description'].setData('');
                     $('.category-name').focus();
+
+                    var data = { id: res.data.id, text: res.data.name };
+                    $('#category_tree').jstree().create_node(selected_item[0], data, 
+                        'last', function () { console.log('added new item') });
 
                 } else {
                     toastr['warning']("Category not Added Successfully!", "Warning")
@@ -38,10 +52,18 @@ $(document).ready(function () {
         });
         
     });
+
+    $('#sel_visibility').on('change', function () {
+        if ($(this).val() == 'Custom') {
+            $('.custom-options').slideDown('slow');
+        }
+        else {
+            $('.custom-options').slideUp('slow');    
+        }
+    });
 });
 
 var ComponentsFormTools = function () {
-
 
     var handleBootstrapSwitch = function() {
 
