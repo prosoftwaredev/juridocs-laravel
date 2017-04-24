@@ -83,7 +83,6 @@ class CategoryController extends Controller
             $newCateogry->name = $req->input('category_name');
             $newCateogry->description = $req->input('category_description');
             $newCateogry->image_url = $imageUrl;
-            $newCateogry->description = $categoryDescription;
 
             $pid = $req->input('pid');
 

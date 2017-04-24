@@ -54,7 +54,7 @@ $(document).ready(function () {
     });
 
     $('#sel_visibility').on('change', function () {
-        if ($(this).val() == 'Custom') {
+        if ($(this).val() == '4') {
             $('.custom-options').slideDown('slow');
         }
         else {
