@@ -15,35 +15,37 @@
 <meta content="" name="author"/>
 <!-- BEGIN GLOBAL MANDATORY STYLES -->
 <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css"/>
-<link href="../../assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
-<link href="../../assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
-<link href="../../assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-<link href="../../assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
-<link href="../../assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css"/>
+{{!! Html::style("assets/global/plugins/font-awesome/css/font-awesome.min.css"); !!}}
+{{!! Html::style("assets/global/plugins/simple-line-icons/simple-line-icons.min.css"); !!}}
+{{!! Html::style("assets/global/plugins/bootstrap/css/bootstrap.min.css"); !!}}
+{{!! Html::style("assets/global/plugins/uniform/css/uniform.default.css"); !!}}
+{{!! Html::style("assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css"); !!}}
 <!-- END GLOBAL MANDATORY STYLES -->
 <!-- BEGIN PAGE LEVEL STYLES -->
-<link rel="stylesheet" type="text/css" href="../../assets/global/plugins/select2/select2.css"/>
-<link rel="stylesheet" type="text/css" href="../../assets/global/plugins/datatables/extensions/Scroller/css/dataTables.scroller.min.css"/>
-<link rel="stylesheet" type="text/css" href="../../assets/global/plugins/datatables/extensions/ColReorder/css/dataTables.colReorder.min.css"/>
-<link rel="stylesheet" type="text/css" href="../../assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css"/>
+{{!! Html::style("assets/global/plugins/select2/select2.css"); !!}}
+{{!! Html::style("assets/global/plugins/datatables/extensions/Scroller/css/dataTables.scroller.min.css"); !!}}
+{{!! Html::style("assets/global/plugins/datatables/extensions/ColReorder/css/dataTables.colReorder.min.css"); !!}}
+{{!! Html::style("assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css"); !!}}
 <!-- END PAGE LEVEL STYLES -->
 <!-- BEGIN PAGE LEVEL STYLES -->
-<link rel="stylesheet" type="text/css" href="../../assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css"/>
-<link rel="stylesheet" type="text/css" href="../../assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css"/>
-<link rel="stylesheet" type="text/css" href="../../assets/global/plugins/jquery-tags-input/jquery.tagsinput.css"/>
-<link rel="stylesheet" type="text/css" href="../../assets/global/plugins/bootstrap-markdown/css/bootstrap-markdown.min.css">
-<link rel="stylesheet" type="text/css" href="../../assets/global/plugins/typeahead/typeahead.css">
+{{!! Html::style("assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css"); !!}}
+{{!! Html::style("assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css"); !!}}
+{{!! Html::style("assets/global/plugins/jquery-tags-input/jquery.tagsinput.css"); !!}}
+{{!! Html::style("assets/global/plugins/bootstrap-markdown/css/bootstrap-markdown.min.css"); !!}}
+{{!! Html::style("assets/global/plugins/typeahead/typeahead.css"); !!}}
 <!-- END PAGE LEVEL STYLES -->
 <!-- BEGIN PAGE LEVEL STYLES -->
-<link rel="stylesheet" type="text/css" href="../../assets/global/plugins/bootstrap-toastr/toastr.min.css"/>
+{{!! Html::style("assets/global/plugins/bootstrap-toastr/toastr.min.css"); !!}}
+{{!! Html::style("assets/global/plugins/bootstrap-modal/css/bootstrap-modal-bs3patch.css"); !!}}
+{{!! Html::style("assets/global/plugins/bootstrap-modal/css/bootstrap-modal.css"); !!}}
 <!-- END PAGE LEVEL STYLES -->
 <!-- BEGIN THEME STYLES -->
-<link href="../../assets/global/css/components.css" id="style_components" rel="stylesheet" type="text/css"/>
-<link href="../../assets/global/css/plugins.css" rel="stylesheet" type="text/css"/>
-<link href="../../assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css"/>
-<link href="../../assets/admin/layout/css/themes/darkblue.css" rel="stylesheet" type="text/css" id="style_color"/>
-<link href="../../assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
-<link rel="stylesheet" type="text/css" href="../../assets/global/plugins/jstree/dist/themes/default/style.min.css"/>
+{{!! Html::style("assets/global/css/components.css"); !!}}
+{{!! Html::style("assets/global/css/plugins.css"); !!}}
+{{!! Html::style("assets/admin/layout/css/layout.css"); !!}}
+{{!! Html::style("assets/admin/layout/css/themes/darkblue.css"); !!}}
+{{!! Html::style("assets/admin/layout/css/custom.css"); !!}}
+{{!! Html::style("assets/global/plugins/jstree/dist/themes/default/style.min.css"); !!}}
 <!-- END THEME STYLES -->
 <link rel="shortcut icon" href="favicon.ico"/>
 </head>
@@ -66,7 +68,7 @@
     <!-- BEGIN LOGO -->
     <div class="page-logo">
       <a href="index.html">
-      <img src="../../assets/admin/layout/img/logo.png" alt="logo" class="logo-default"/>
+        {!! Html::image('assets/admin/layout/img/logo.png', 'alt', array("class"=>"logo-default")) !!}
       </a>
       <div class="menu-toggler sidebar-toggler hide">
       </div>
@@ -83,7 +85,7 @@
         <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
         <li class="dropdown dropdown-user">
           <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-          <img alt="" class="img-circle" src="../../assets/admin/layout/img/avatar3_small.jpg"/>
+          {!! Html::image('assets/admin/layout/img/avatar3_small.jpg', 'alt', array()) !!}
           <span class="username username-hide-on-mobile">
           Nick </span>
           <i class="fa fa-angle-down"></i>

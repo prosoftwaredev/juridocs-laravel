@@ -1,18 +1,39 @@
-  @extends('layouts.admin.header')
+@extends('layouts.admin.header')
 
 @section('header')
 
-<script src="../../assets/admin/pages/scripts/document/add_document.js"></script>
+<link href="../../assets/admin/pages/css/category/add.css" rel="stylesheet" type="text/css"/>
+
 <script src="../../assets/admin/pages/scripts/ui-toastr.js"></script>
 
+<script src="../../assets/admin/pages/scripts/category/add_category.js"></script>
+<script src="../../assets/admin/pages/scripts/ui-toastr.js"></script>
+
+
+
 <script>
-  jQuery(document).ready(function() {       
+  jQuery(document).ready(function() {
+
     ComponentsFormTools.init();
     UIToastr.init();
 
-    $('.page-sidebar-menu .active').removeClass('active');
-    $('.page-sidebar-menu .documents').addClass('active');
-    $('.page-sidebar-menu .documents .documents_add').addClass('active');
+    $('#category_tree').jstree({
+      'plugins': ["wholerow", "dnd", "state","types"],
+      'core': {
+        "themes" : {
+            "responsive": true
+        },
+        'data': <?php echo json_encode($categories)?>,
+        "check_callback": true
+      },
+      'types': {
+        "default" : {
+            "icon" : "fa fa-th-list icon-state-warning icon-lg"
+        }
+      }
+    }).bind("loaded.jstree", function (e, data) {
+      $('#category_tree').jstree(true).deselect_all();
+    }) ;
   });
 </script>
 
@@ -53,11 +74,11 @@
           <i class="fa fa-angle-right"></i>
         </li>
         <li>
-          <a href="#">Document</a>
+          <a href="#">Category</a>
           <i class="fa fa-angle-right"></i>
         </li>
         <li>
-          <a href="#">Add</a>
+          <a href="#">Edit</a>
         </li>
       </ul>
     </div>
@@ -69,7 +90,7 @@
         <div class="portlet box blue-hoki">
           <div class="portlet-title">
             <div class="caption">
-              <i class="fa fa-edit"></i>Add Document
+              <i class="fa fa-edit"></i>Edit Category
             </div>
             <div class="tools">
               <a href="javascript:;" class="collapse">
@@ -84,36 +105,13 @@
           </div>
           <div class="portlet-body form">
             <!-- BEGIN FORM-->
-            <form action="" class="form-horizontal form-bordered document-add-form">
+            <form action="" class="form-horizontal form-bordered" id="form_edit_category">
+              <input type='hidden' value="{{$category->id}}" name="id" id="category_id"/>
               <div class="form-body">
-                <div class="alert alert-danger display-hide">
-                  <button class="close" data-close="alert"></button>
-                  You have some form errors. Please check below.
-                </div>
-                <div class="alert alert-success display-hide">
-                  <button class="close" data-close="alert"></button>
-                  Your form validation is successful!
-                </div>
                 <div class="form-group">
-                  <label class="control-label col-md-3">Name <span class="required">
-                  * </span>
-                  </label>
+                  <label class="control-label col-md-3">Name</label>
                   <div class="col-md-9">
-                    <input type="text" class="form-control document-name" data-required="1" name="name">
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="control-label col-md-3">Payed</label>
-                  <div class="col-md-9">
-                    <input type="checkbox" class="make-switch" checked data-on-color="success" data-off-color="warning" id="payed_option">
-                  </div>
-                </div>
-                <div class="form-group document-price-div">
-                  <label class="control-label col-md-3">Price</label>
-                  <div class="col-md-9">
-                    <div class="input-inline input-medium">
-                      <input id="touchspin_demo1" type="text" value="0" name="document-price" class="form-control document-price">
-                    </div>
+                    <input type="text" class="form-control category-name" name="category_name" value="{{$category->name}}">
                   </div>
                 </div>
                 <div class="form-group">
@@ -121,6 +119,7 @@
                   <div class="col-md-9">
                     <div class="fileinput fileinput-new" data-provides="fileinput">
                       <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;">
+                        <img scr={{$category->image_url}}/>
                       </div>
                       <div>
                         <span class="btn default btn-file">
@@ -128,7 +127,7 @@
                         Select image </span>
                         <span class="fileinput-exists">
                         Change </span>
-                        <input type="file" name="...">
+                        <input type="file" name="category_image" accept="image/*">
                         </span>
                         <a href="javascript:;" class="btn red fileinput-exists" data-dismiss="fileinput">
                         Remove </a>
@@ -136,17 +135,51 @@
                     </div>
                   </div>
                 </div>
-                <div class="form-group last">
-                  <label class="control-label col-md-3">Document Template</label>
+                <div class="form-group">
+                  <label class="control-label col-md-3">Parent Category</label>
                   <div class="col-md-9">
-                    <textarea class="ckeditor form-control document-template" name="document-template" rows="6" id="document-template"></textarea>
+                    <div id='category_tree'></div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="control-label col-md-3">Visibility</label>
+                  <div class="col-md-9">
+                    <select name="visibility" id="sel_visibility" class="form-control">
+                    @foreach ($visibilities as $key => $visibility)
+                      <option value="{{$visibility->id}}"> {{$visibility->name}} </option>
+                    @endforeach
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group custom-options">
+                  <label class="control-label col-md-3">Users</label>
+                  <div class="col-md-9">
+                    <select name="user" class="form-control" id="sel_users">
+                    @foreach ($users as $key => $user)
+                      <option value="{{$user->id}}"> {{$user->name}} </option>
+                    @endforeach
+                    </select>
+                  </div>
+                  <label class="control-label col-md-3">Groups</label>
+                  <div class="col-md-9">
+                    <select name="group" class="form-control" id="sel_groups">
+                    @foreach ($groups as $key => $group)
+                      <option value="{{$group->id}}"> {{$group->name}} </option>
+                      @endforeach
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group last">
+                  <label class="control-label col-md-3">Category Description</label>
+                  <div class="col-md-9">
+                    <textarea class="form-control" rows="6" name="category_description"">{{$category->description}}</textarea>
                   </div>
                 </div>
               </div>
               <div class="form-actions">
                 <div class="row">
                   <div class="col-md-offset-3 col-md-9">
-                    <button type="button" class="btn purple add-document"><i class="fa fa-check"></i> Add</button>
+                    <button type="submit" class="btn purple add-category"><i class="fa fa-check"></i>Edit</button>
                     <button type="button" class="btn default">Cancel</button>
                   </div>
                 </div>

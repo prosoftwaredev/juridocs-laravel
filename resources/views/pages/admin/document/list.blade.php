@@ -9,6 +9,9 @@
 <script>
   jQuery(document).ready(function() {       
     TableAdvanced.init();
+    $('.page-sidebar-menu .active').removeClass('active');
+    $('.page-sidebar-menu .documents').addClass('active');
+    $('.page-sidebar-menu .documents .documents_list').addClass('active');
   });
 </script>
 

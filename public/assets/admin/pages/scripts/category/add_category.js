@@ -15,30 +15,29 @@ toastr.options = {
 
 $(document).ready(function () {
 
-    $('.add-category').click(function() {
-        var category_name = $('.category-name').val();
-        var category_description = CKEDITOR.instances['category-description'].getData();
+    $('#form_add_category').submit(function(e) {
+        e.preventDefault();
+
         var csrf = $("#token").attr('content');
         var selected_item = $('#category_tree').jstree("get_selected");
         if (selected_item.length == 0 ) {
             selected_item.push('#');
         }
-        
+
+        var formData = new FormData(this);
+        formData.append('pid', selected_item[0]);
         $.ajax({
             type: "POST",
             url: 'add_ajax',
+            processData: false,
+            contentType: false,
             headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-            data: { 
-                category_name: category_name, 
-                category_description: category_description,
-                pid: selected_item[0]
-            },
+            data: formData,
             success: function( res ) {
                 if(res['success'] == true) {
                     toastr['success']("Category Added Successfully!", "Success")
-
+                    $('.fileinput input[type="file"]').val('');
                     $('.category-name').val('');
-                    CKEDITOR.instances['category-description'].setData('');
                     $('.category-name').focus();
 
                     var data = { id: res.data.id, text: res.data.name };
@@ -53,8 +52,45 @@ $(document).ready(function () {
         
     });
 
+    $('#form_edit_category').submit(function(e) {
+        e.preventDefault();
+
+        var csrf = $("#token").attr('content');
+        var selected_item = $('#category_tree').jstree("get_selected");
+        if (selected_item.length == 0 ) {
+            selected_item.push('#');
+        }
+        if ($('#categroy_id').val() == selected_item[0]) {
+            alert('not updated');
+        }
+        var formData = new FormData(this);
+        formData.append('pid', selected_item[0]);
+        $.ajax({
+            type: "POST",
+            url: 'edit_ajax',
+            processData: false,
+            contentType: false,
+            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+            data: formData,
+            success: function( res ) {
+                if(res['success'] == true) {
+                    toastr['success']("Category Updated Successfully!", "Success")
+                    $('.fileinput input[type="file"]').val('');
+                    $('.category-name').focus();
+
+                    $('#category_tree').jstree(true).settings.core.data = res.data;
+                    $('#category_tree').jstree(true).refresh();
+
+                } else {
+                    toastr['warning']("Category not Updated Successfully!", "Warning")
+                }
+            }
+        });
+        
+    });
+
     $('#sel_visibility').on('change', function () {
-        if ($(this).val() == '4') {
+        if ($(this).find('option:selected').text()== ' Custom ') {
             $('.custom-options').slideDown('slow');
         }
         else {

@@ -7,7 +7,15 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class Glossary extends Controller
+use App\Models\Glossary;
+use App\Models\Selector;
+use App\Models\Clause;
+use App\Models\Field;
+use App\Models\Category;
+
+use Response;
+
+class GlossaryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +24,10 @@ class Glossary extends Controller
      */
     public function index()
     {
-        //
+        $glossaries = Glossary::get();
+        return view('pages.admin.glossary.list', [
+            'glossaries' => $glossaries
+        ]);
     }
 
     /**
@@ -59,7 +70,17 @@ class Glossary extends Controller
      */
     public function edit($id)
     {
-        //
+        $selectors = Selector::where('glossary_id', $id);
+        $fields = Field::where('glossary_id', $id);
+        $clauses = Clause::where('glossary_id', $id);
+        $categories = Category::get();
+        $glossary = Glossary::find($id);
+
+        return view('pages.admin.glossary.edit', [
+            "selectors" => $selectors,
+            "fields" => $fields,
+            "clauses" =>$clauses
+            ]);
     }
 
     /**

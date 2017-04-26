@@ -2,7 +2,7 @@
 
 @section('header')
 
-<link href="../../assets/admin/pages/css/category/add.css" rel="stylesheet" type="text/css"/>
+{{!! Html::style("assets/admin/pages/css/category/add.css") !!}}
 
 <script src="../../assets/admin/pages/scripts/ui-toastr.js"></script>
 
@@ -31,7 +31,11 @@
             "icon" : "fa fa-th-list icon-state-warning icon-lg"
         }
       }
-    })   
+    })
+
+    $('.page-sidebar-menu .active').removeClass('active');
+    $('.page-sidebar-menu .categories').addClass('active');
+    $('.page-sidebar-menu .categories .category_add').addClass('active');
 
   });
 </script>
@@ -104,12 +108,12 @@
           </div>
           <div class="portlet-body form">
             <!-- BEGIN FORM-->
-            <form action="" class="form-horizontal form-bordered">
+            <form action="" class="form-horizontal form-bordered" id="form_add_category">
               <div class="form-body">
                 <div class="form-group">
                   <label class="control-label col-md-3">Name</label>
                   <div class="col-md-9">
-                    <input type="text" class="form-control category-name">
+                    <input type="text" class="form-control category-name" name="category_name">
                   </div>
                 </div>
                 <div class="form-group">
@@ -124,7 +128,7 @@
                         Select image </span>
                         <span class="fileinput-exists">
                         Change </span>
-                        <input type="file" name="category-image">
+                        <input type="file" name="category_image" accept="image/*">
                         </span>
                         <a href="javascript:;" class="btn red fileinput-exists" data-dismiss="fileinput">
                         Remove </a>
@@ -151,34 +155,32 @@
                 <div class="form-group custom-options">
                   <label class="control-label col-md-3">Users</label>
                   <div class="col-md-9">
-                    <select name="visibility" id="sel_visibility" class="form-control">
-                      <option value="public">Public</option>
-                      <option value="logged_in">Logged in Users</option>
-                      <option value="hidden">Hidden</option>
-                      <option value="custom">Custom</option>
+                    <select name="user" class="form-control" id="sel_users">
+                    @foreach ($users as $key => $user)
+                      <option value="{{$user->id}}"> {{$user->name}} </option>
+                    @endforeach
                     </select>
                   </div>
                   <label class="control-label col-md-3">Groups</label>
                   <div class="col-md-9">
-                    <select name="visibility" id="sel_visibility" class="form-control">
-                      <option value="public">Public</option>
-                      <option value="logged_in">Logged in Users</option>
-                      <option value="hidden">Hidden</option>
-                      <option value="custom">Custom</option>
+                    <select name="group" class="form-control" id="sel_groups">
+                    @foreach ($groups as $key => $group)
+                      <option value="{{$group->id}}"> {{$group->name}} </option>
+                      @endforeach
                     </select>
                   </div>
                 </div>
                 <div class="form-group last">
                   <label class="control-label col-md-3">Category Description</label>
                   <div class="col-md-9">
-                    <textarea class="ckeditor form-control category-description" name="editor1" rows="6" name="category-description" id="category-description"></textarea>
+                    <textarea class="form-control" name="category_description" rows="6"></textarea>
                   </div>
                 </div>
               </div>
               <div class="form-actions">
                 <div class="row">
                   <div class="col-md-offset-3 col-md-9">
-                    <button type="button" class="btn purple add-category"><i class="fa fa-check"></i> Add</button>
+                    <button type="submit" class="btn purple add-category"><i class="fa fa-check"></i>Add</button>
                     <button type="button" class="btn default">Cancel</button>
                   </div>
                 </div>
