@@ -2,76 +2,8 @@
 
 @section('header')
 
-{!!Html::script('assets/global/plugins/jstree/dist/jstree.min.js'); !!}
-
 <script>
   jQuery(document).ready(function() {
-
-    function customMenu(node) {
-      // The default set of all items
-      var tree = $("#category_tree").jstree(true);
-      var items = {
-        "createItem": {
-          "label": "Add",
-          "action": function () {
-            window.location.href="category/add";
-          }
-        },
-        "deleteItem": { // The "delete" menu item
-          "label": "Delete",
-          "action": function () {
-            $('#delete_modal').modal({
-              backdrop: 'static',
-              keyboard: false
-            })
-            .one('click', '.delete', function(e) {
-              $.ajax({
-                url: 'category/delete_ajax/' + node.id,
-                success: function( res ) {
-                  if(res['success'] == true) {
-                      toastr['success']("Category Deleted Successfully!", "Success");
-                      tree.delete_node(node);
-                  } else {
-                      toastr['warning']("Category not Deleted Successfully!", "Warning")
-                  }
-                }
-            });
-            });
-          }
-        },
-        "editItem" : {
-          "label": "Edit",
-          "action": function () {
-            window.location.href="category/" + node.id;
-          }
-        }
-
-      };
-      return items;
-  }
-
-    $('#category_tree').jstree({
-      'plugins': ["contextmenu","wholerow", "dnd", "state","types"],
-      'core': {
-        "themes" : {
-            "responsive": true
-        },
-        "check_callback" : true,
-        'data': <?php echo json_encode($categories)?>,
-      },
-      'contextmenu': {
-        'items': customMenu
-      },
-      'types': {
-        "default" : {
-            "icon" : "fa fa-th-list icon-state-warning icon-lg"
-        }
-      }
-    });
-
-    $('.page-sidebar-menu .active').removeClass('active');
-    $('.page-sidebar-menu .categories').addClass('active');
-    $('.page-sidebar-menu .categories .categories_list').addClass('active');
   });
 </script>
 
@@ -112,7 +44,7 @@
           <i class="fa fa-angle-right"></i>
         </li>
         <li>
-          <a href="#">Category</a>
+          <a href="#">Glossary</a>
           <i class="fa fa-angle-right"></i>
         </li>
         <li>
@@ -127,7 +59,7 @@
           <div class="portlet box green-haze">
             <div class="portlet-title">
               <div class="caption">
-                <i class="fa fa-globe"></i>Categories
+                <i class="fa fa-globe"></i>Glossaries
               </div>
               <div class="tools">
                 <a href="javascript:;" class="collapse">
@@ -141,8 +73,24 @@
               </div>
             </div>
             <div class="portlet-body">
-              <div id='category_tree'>
-              </div>
+              <ul class="list-group">
+                @foreach($glossaries as $key => $glossary) 
+                  <li class="list-group-item">
+                    <div class="row">
+                      <div class="col-md-1">
+                        <span class="glyphicon glyphicon-ok"/>
+                      </div>
+                      <div class="col-md-9">
+                        <a href="<?php echo "../edit/".$glossary->id; ?>">
+                          {{$glossary -> name}}
+                        </a>
+                      </div>
+                      <div class="col-md-1"><a href="<?php echo "../edit/".$glossary->id; ?>"><span class="glyphicon glyphicon-edit"/></a></div>
+                      <div class="col-md-1"><a href="javascript:void(0)"><span class="glyphicon glyphicon-trash"/></a></div>
+                    </div>
+                  </li>
+                @endforeach
+              </ul>
             </div>
           </div>
         <!-- END EXAMPLE TABLE PORTLET-->
@@ -152,7 +100,7 @@
   <div id="delete_modal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false" data-attention-animation="false">
     <div class="modal-body">
       <p>
-         Would you like to delete this category?
+         Would you like to delete this Glossaries?
       </p>
     </div>
     <div class="modal-footer">

@@ -40,8 +40,46 @@ Route::group(['prefix' => 'admin'], function () {
 		   'as' => 'admin/category/add', 'uses' => 'admin\CategoryController@addcategory'
 		]);
 
+		Route::get('/{id}', [
+		   'as' => 'admin/category', 'uses' => 'admin\CategoryController@editcategory'
+		]);
+
+		Route::match(['get', 'post'], '/edit_ajax', [
+		   'as' => 'admin/category/edit_ajax', 'uses' => 'admin\CategoryController@editcategory_ajax'
+		]);
+
 		Route::match(['get', 'post'], '/add_ajax', [
 		   'as' => 'admin/category/add_ajax', 'uses' => 'admin\CategoryController@addcategory_ajax'
+		]);
+
+		Route::match(['get', 'post'], '/delete_ajax/{id}', [
+		   'as' => 'admin/category/delete_ajax', 'uses' => 'admin\CategoryController@deletecategory_ajax'
+		]);
+	});
+
+	Route::group(['prefix' => 'glossary'], function () {
+		Route::get('/', [
+		   'as' => 'admin/glossary', 'uses' => 'admin\GlossaryController@index'
+		]);
+
+		Route::get('/edit/{id}', [
+		   'as' => 'admin/category/add', 'uses' => 'admin\GlossaryController@edit'
+		]);
+
+		Route::get('/{id}', [
+		   'as' => 'admin/category', 'uses' => 'admin\GlossaryController@editcategory'
+		]);
+
+		Route::match(['get', 'post'], '/edit_ajax', [
+		   'as' => 'admin/category/edit_ajax', 'uses' => 'admin\GlossaryController@editcategory_ajax'
+		]);
+
+		Route::match(['get', 'post'], '/add_ajax', [
+		   'as' => 'admin/category/add_ajax', 'uses' => 'admin\GlossaryController@addcategory_ajax'
+		]);
+
+		Route::match(['get', 'post'], '/delete_ajax/{id}', [
+		   'as' => 'admin/category/delete_ajax', 'uses' => 'admin\GlossaryController@deletecategory_ajax'
 		]);
 	});
 

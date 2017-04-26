@@ -36,7 +36,7 @@
           </form>
           <!-- END RESPONSIVE QUICK SEARCH FORM -->
         </li>
-        <li class="start active">
+        <li class="documents">
           <a href="javascript:;">
             <i class="fa fa-edit"></i>
             <span class="title">Documents</span>
@@ -44,38 +44,50 @@
             <span class="arrow open"></span>
           </a>
           <ul class="sub-menu">
-            <li class="active">
+            <li class="documents_list">
               <a href="/admin/document">
               <i class="fa fa-list-ul"></i>
               Documents</a>
             </li>
-            <li>
+            <li class="add_list">
               <a href="/admin/document/add">
               <i class="fa fa-plus-square"></i>
               Add Document</a>
             </li>
           </ul>
         </li>
-        <li>
+        <li class="glossaries">
           <a href="javascript:;">
             <i class="fa fa-book"></i>
             <span class="title">Glossaries</span>
             <span class="arrow"></span>
           </a>
+          <ul class="sub-menu">
+            <li class="glossaries_list">
+              <a href="/admin/glossary">
+              <i class="fa fa-list-ul"></i>
+              Glossaries</a>
+            </li>
+            <li class="glossary_add">
+              <a href="/admin/glossary/add">
+              <i class="fa fa-plus-square"></i>
+              Add Glossary</a>
+            </li>
+          </ul>
         </li>
-        <li>
+        <li class="categories">
           <a href="javascript:;">
             <i class="fa fa-list-ul"></i>
             <span class="title">Categories</span>
             <span class="arrow"></span>
           </a>
           <ul class="sub-menu">
-            <li>
+            <li class="categories_list">
               <a href="/admin/category">
               <i class="fa fa-list-ul"></i>
               Categories</a>
             </li>
-            <li>
+            <li class="category_add">
               <a href="/admin/category/add">
               <i class="fa fa-plus-square"></i>
               Add Category</a>
@@ -114,7 +126,6 @@
           <a href="javascript:;">
             <i class="fa fa-power-off"></i>
             <span class="title">Logout</span>
-            <span class="arrow"></span>
           </a>
         </li>
       </ul>
